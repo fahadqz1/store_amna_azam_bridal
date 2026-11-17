@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply box-border;
+}
+
+html {
+  @apply scroll-smooth;
+}
+
+body {
+  @apply bg-white text-charcoal antialiased;
+}
+
+/* Typography */
+h1 {
+  @apply font-display text-5xl font-bold tracking-tight;
+}
+
+h2 {
+  @apply font-display text-4xl font-bold tracking-tight;
+}
+
+h3 {
+  @apply font-display text-3xl font-semibold tracking-tight;
+}
+
+h4 {
+  @apply font-display text-2xl font-semibold;
+}
+
+h5 {
+  @apply font-display text-xl font-semibold;
+}
+
+h6 {
+  @apply font-sans text-lg font-semibold;
+}
+
+p {
+  @apply text-base leading-relaxed text-slate;
+}
+
+a {
+  @apply text-charcoal hover:text-slate transition-colors duration-200;
+}
+
+/* Buttons */
+button {
+  @apply transition-all duration-300;
+}
+
+/* Forms */
+input,
+textarea,
+select {
+  @apply border border-gray-200 rounded px-4 py-2 font-sans text-base focus:outline-none focus:ring-2 focus:ring-charcoal/20 focus:border-charcoal transition-all;
+}
+
+/* Scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection */
+::selection {
+  @apply bg-champagne text-charcoal;
+}
