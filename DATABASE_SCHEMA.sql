@@ -608,6 +608,38 @@ $$ LANGUAGE plpgsql;
 -- Sequence for order number generation
 CREATE SEQUENCE IF NOT EXISTS order_number_seq START WITH 1000;
 
+-- Function to reduce inventory when order is placed
+CREATE OR REPLACE FUNCTION reduce_inventory(
+  p_product_id UUID,
+  p_size TEXT,
+  p_quantity INT
+)
+RETURNS BOOLEAN AS $$
+DECLARE
+  v_current_stock INT;
+BEGIN
+  -- Get current stock
+  SELECT stock INTO v_current_stock FROM public.product_inventory
+  WHERE product_id = p_product_id AND size = p_size;
+
+  -- Check if stock exists and is sufficient
+  IF v_current_stock IS NULL THEN
+    RAISE EXCEPTION 'Product inventory not found';
+  END IF;
+
+  IF v_current_stock < p_quantity THEN
+    RAISE EXCEPTION 'Insufficient stock available';
+  END IF;
+
+  -- Update inventory
+  UPDATE public.product_inventory
+  SET stock = stock - p_quantity
+  WHERE product_id = p_product_id AND size = p_size;
+
+  RETURN TRUE;
+END;
+$$ LANGUAGE plpgsql;
+
 -- Trigger to update updated_at timestamp
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
