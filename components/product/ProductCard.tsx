@@ -31,46 +31,55 @@ export default function ProductCard({
   return (
     <Link href={`/product/${slug}`}>
       <div className="group cursor-pointer">
-        {/* Image Container */}
-        <div className="relative overflow-hidden bg-gray-100 aspect-square mb-4">
+        {/* 💎 Luxury Image Container */}
+        <div className="relative overflow-hidden aspect-[3/4] mb-6">
+          {/* Decorative border */}
+          <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#d4af37] transition-colors duration-500 z-20 pointer-events-none"></div>
+
+          {/* Background gradient */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#fdf8f7] to-[#f9f1ed]"></div>
+
           <Image
             src={image}
             alt={name}
             fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
+            className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+            loading="lazy"
           />
 
-          {/* Badges */}
+          {/* Luxury Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+          {/* 💎 Premium Badges */}
           <div className="absolute top-4 left-4 flex gap-2 z-10">
             {is_bestseller && (
-              <span className="bg-gray-900 text-white text-xs font-semibold px-3 py-1">
-                BESTSELLER
+              <span className="bg-gradient-to-r from-[#d4af37] to-[#e38f85] text-white text-xs font-serif font-bold px-4 py-1.5 uppercase tracking-widest shadow-lg">
+                ⭐ Bestseller
               </span>
             )}
             {is_featured && (
-              <span className="bg-gray-700 text-white text-xs font-semibold px-3 py-1">
-                FEATURED
+              <span className="bg-gradient-to-r from-[#643a5f] to-[#084038] text-white text-xs font-serif font-bold px-4 py-1.5 uppercase tracking-widest shadow-lg">
+                ✨ Featured
               </span>
             )}
             {discountPercentage && (
-              <span className="bg-red-500 text-white text-xs font-semibold px-3 py-1">
-                -{discountPercentage}%
+              <span className="bg-gradient-to-r from-[#e38f85] to-[#d4af37] text-white text-xs font-serif font-bold px-4 py-1.5 uppercase tracking-widest shadow-lg">
+                -{discountPercentage}% OFF
               </span>
             )}
           </div>
 
-          {/* Wishlist Button */}
+          {/* 💎 Luxury Wishlist Button */}
           <button
             onClick={(e) => {
               e.preventDefault();
-              // TODO: Add to wishlist functionality
             }}
             aria-label="Add to wishlist"
-            className="absolute top-4 right-4 p-2 bg-white/90 hover:bg-white text-gray-900 transition-all duration-200 opacity-0 group-hover:opacity-100"
+            className="absolute top-6 right-6 p-3 bg-gradient-to-r from-[#d4af37] to-[#e38f85] text-white rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 transform group-hover:scale-110 shadow-lg hover:shadow-xl z-20"
           >
             <svg
               className="w-5 h-5"
-              fill="none"
+              fill="currentColor"
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
@@ -84,28 +93,33 @@ export default function ProductCard({
           </button>
         </div>
 
-        {/* Product Info */}
-        <div>
-          <h3 className="text-sm md:text-base font-medium text-gray-900 group-hover:text-gray-700 transition-colors line-clamp-2 mb-2">
+        {/* 💎 Luxury Product Info */}
+        <div className="group-hover:translate-y-1 transition-transform duration-500">
+          <h3 className="text-base md:text-lg font-serif font-semibold text-[#1a1a1a] group-hover:text-[#643a5f] transition-colors line-clamp-2 mb-3">
             {name}
           </h3>
 
-          {/* Pricing */}
-          <div className="flex items-baseline gap-2">
+          {/* 💎 Luxury Pricing */}
+          <div className="flex items-center gap-3 mb-4">
             {discount_price ? (
               <>
-                <span className="text-base md:text-lg font-semibold text-gray-900">
+                <span className="text-xl font-serif font-bold text-[#d4af37]">
                   {formatCurrency(discount_price)}
                 </span>
-                <span className="text-sm text-gray-500 line-through">
+                <span className="text-sm text-[#1a1a1a]/50 line-through font-medium">
                   {formatCurrency(price)}
                 </span>
               </>
             ) : (
-              <span className="text-base md:text-lg font-semibold text-gray-900">
+              <span className="text-xl font-serif font-bold text-[#1a1a1a]">
                 {formatCurrency(price)}
               </span>
             )}
+          </div>
+
+          {/* Add to Cart Indicator */}
+          <div className="text-xs text-[#643a5f] font-semibold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+            → View Details
           </div>
         </div>
       </div>
